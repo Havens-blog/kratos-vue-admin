@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package api.modelop.service.v1;
+
+option go_package = "github.com/byteflowteam/kratos-vue-admin/api/modelop/service/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.modelop.service.v1";
+
+service Modelop {
+	rpc CreateModelop (CreateModelopRequest) returns (CreateModelopReply);
+	rpc UpdateModelop (UpdateModelopRequest) returns (UpdateModelopReply);
+	rpc DeleteModelop (DeleteModelopRequest) returns (DeleteModelopReply);
+	rpc GetModelop (GetModelopRequest) returns (GetModelopReply);
+	rpc ListModelop (ListModelopRequest) returns (ListModelopReply);
+}
+
+message CreateModelopRequest {}
+message CreateModelopReply {}
+
+message UpdateModelopRequest {}
+message UpdateModelopReply {}
+
+message DeleteModelopRequest {}
+message DeleteModelopReply {}
+
+message GetModelopRequest {}
+message GetModelopReply {}
+
+message ListModelopRequest {}
+message ListModelopReply {}

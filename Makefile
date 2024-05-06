@@ -118,7 +118,44 @@ wire:
 # generate api proto
 api: grpc http swagger errors
 
+.PHONY: app
+# newapp
+app:
+	kratos proto add api/$(name)/service/v1/$(name).proto && \
+	kratos proto client api/$(name)/service/v1/$(name).proto && \
+	cd app && mkdir $(name) && cd ./$(name) && mkdir service && cd ./service && mkdir cmd && mkdir ./cmd/server && \
+	cd ./cmd/server touch main.go && echo "package main" >> ./main.go && cd .. && cd .. \
+	mkdir configs && mkdir internal && cd internal && mkdir biz && \
+	cd biz && touch biz.go && echo "package biz" >> ./biz.go && cd .. && \
+	mkdir conf && mkdir data && \
+	cd data && touch data.go && echo "package data" >> ./data.go && cd .. && \
+	mkdir server && \
+	cd server && touch server.go && echo "package server" >> ./server.go && cd .. && \
+	mkdir service && cd service && \
+	touch service.go && echo "package service" >> ./service.go && cd .. && \
+	cd .. && touch .gitignore && touch generate.go && echo "package generate" >> ./generate.go && \
+	touch Makefile && echo "include ../../../app_makefile" >> ./Makefile && touch README.MD && cd ../../../ && \
+	kratos proto server api/$(name)/service/v1/$(name).proto -t app/$(name)/service/internal/service
 
+.PHONY: appwin
+# newapp
+appwin:
+	mkdir api\%name%\service\v1 && \
+	kratos proto add api/%name%/service/v1/%name%.proto && \
+	kratos proto client api/%name%/service/v1/%name%.proto && \
+	cd app && mkdir %name% && cd .\%name% && mkdir service && cd .\service && mkdir cmd && mkdir .\cmd\server && \
+	cd .\cmd\server && type nul > main.go && echo package main >> main.go && cd ..\.. && \
+	mkdir configs && mkdir internal && cd internal && mkdir biz && \
+	cd biz && type nul > biz.go && echo package biz >> biz.go && cd .. && \
+	mkdir conf && mkdir data && \
+	cd data && type nul > data.go && echo package data >> data.go && cd .. && \
+	mkdir server && \
+	cd server && type nul > server.go && echo package server >> server.go && cd .. && \
+	mkdir service && cd service && \
+	type nul > service.go && echo package service >> service.go && cd ..\.. && \
+	type nul > .gitignore && type nul > generate.go && echo package generate >> generate.go && \
+	type nul > Makefile && echo include ../../../app_makefile >> Makefile && type nul > README.MD && cd ..\..\.. && \
+	kratos proto server api\%name%\service\v1\%name%.proto -t app\%name%\service\internal\service
 
 .PHONY: all
 # generate all
